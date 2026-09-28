@@ -1,0 +1,425 @@
+fileFormatVersion: 2
+guid: de5e161de94230f48b5b728ef2c09d13
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Amarelo_Aviso_Porta
+    second: {fileID: 2100000, guid: c3da968752f0f114dae0ef7b0e6fd43a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Amarelo_Aviso_Porta.001
+    second: {fileID: 2100000, guid: 02d9d042526d67b4bbc64c16174c6991, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Bot\xF5es de Emerg\xEAncia"
+    second: {fileID: 2100000, guid: 7af949da8a97e55479a3b87c1a482c1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo Blindado
+    second: {fileID: 2100000, guid: ef9851eba70c3dc4db54281aa1e663c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo Blindado.001
+    second: {fileID: 2100000, guid: c902ea5a190371f44b8df78c130b2a0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo Blindado.002
+    second: {fileID: 2100000, guid: 9831370ee6de13e4f9c0e3746a7df616, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo Blindado.003
+    second: {fileID: 2100000, guid: d7efc320587ed904a881cfef663c0d53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo_espada
+    second: {fileID: 2100000, guid: 94573f4b311e02f43a955f49a2122280, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabo_espada.001
+    second: {fileID: 2100000, guid: 4b5267dcfc86a6340a0debd5790e547d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Cadeira_P\xE9s"
+    second: {fileID: 2100000, guid: 956a59f61f8c25844ac463b3ce6e767a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Ch\xE3o_Branco"
+    second: {fileID: 2100000, guid: a63240c9a18f36a4aac4b3a3508d8258, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cor_CheckPoint
+    second: {fileID: 2100000, guid: edc9b9731bc03bc4a8cb7432facc7172, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cor_CheckPoint.001
+    second: {fileID: 2100000, guid: 4a3ec46332b02124bbe5657bfae263c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cruz_Escudo
+    second: {fileID: 2100000, guid: 6ded4c3a0fc4d0d47a1615420f9ff0a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cruz_Escudo.001
+    second: {fileID: 2100000, guid: f1e84e138382c87408d295dcb26e87c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cruz_Escudo.002
+    second: {fileID: 2100000, guid: ee755f327c0520d4dad9c0504e36d6d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Escudo
+    second: {fileID: 2100000, guid: d7fecfeaeb8f8cb45873e5ff50064e43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Escudo.001
+    second: {fileID: 2100000, guid: 74b4efe8da5ecfa489b9674673fb4be8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Escudo.002
+    second: {fileID: 2100000, guid: a40f3a778219d794c8bf25af02576333, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grades_Janela
+    second: {fileID: 2100000, guid: 9cbd60910c0bd5c44996d0d706c83cf4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lamina_espada
+    second: {fileID: 2100000, guid: dcffde43680355e48a274c6912457d86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lamina_espada.001
+    second: {fileID: 2100000, guid: ad72045da3a6fed4d8caf6a18e4bc87b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Luz_Vermelha
+    second: {fileID: 2100000, guid: fcf1b8377db1ab647a1dd7758ffd189f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira
+    second: {fileID: 2100000, guid: 3d83fb8edcce4d143a4fdd2ae84245bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira.002
+    second: {fileID: 2100000, guid: 12773fc6748d7f94593c8dad15168976, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 02808d0f168815f439f1ddf1730a1e66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Monitor_Checkpoint
+    second: {fileID: 2100000, guid: d8b0eab15a53b8e45b6c780ecc5eaa8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Monitor_Checkpoint.001
+    second: {fileID: 2100000, guid: 06d7567119aad97408a93b583639c775, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Painel do Bot\xE3o"
+    second: {fileID: 2100000, guid: f8c87b74633b6c9479b070af80b8ec6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Painel do Bot\xE3o.001"
+    second: {fileID: 2100000, guid: 0cccbb3e210ed0442ae94bc90f1c2f63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Painel_Control_CheckPoint
+    second: {fileID: 2100000, guid: ddb55278351fe4e49aa41671525dd5e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Painel_Control_CheckPoint.001
+    second: {fileID: 2100000, guid: 7ee10f94f007d5440b560b0899baa869, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Parede_Vermelha_Fase1_2
+    second: {fileID: 2100000, guid: 3c81b010c7acfde45ae2a3838ae6942e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteFora_TV
+    second: {fileID: 2100000, guid: 2b9ed037b5e19b042b69c3c9b16218d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Placa_Energia_textura
+    second: {fileID: 2100000, guid: 7296cac3f5a110d49955a07879f53f3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Porta Principal
+    second: {fileID: 2100000, guid: 80abce2ef27892e4cbcfd20b799461a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Porta Principal.001
+    second: {fileID: 2100000, guid: 362b18a378c09a14ba618387c729d4f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Porta_Cor
+    second: {fileID: 2100000, guid: 3c0f1b3f150a84747967ffd917b8f7b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Portas do Elevador
+    second: {fileID: 2100000, guid: afaba3b61f020a24e9bad40676468930, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Setas Direcionais
+    second: {fileID: 2100000, guid: 5d0b5910361b9484daea9fc98e2a214f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV1
+    second: {fileID: 2100000, guid: be922363b39c9184a8f47566b63bd4f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV2
+    second: {fileID: 2100000, guid: 3d3f86be125447d47bc30837771c48ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV3
+    second: {fileID: 2100000, guid: f9028b52cacab9f41b2284e3f7852760, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV4
+    second: {fileID: 2100000, guid: dbfbde7814a15384fa65892d4018eda5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV5
+    second: {fileID: 2100000, guid: 5c6e514ae7f57264c84492dac6fbf990, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV6
+    second: {fileID: 2100000, guid: 38a4995c616029d468e72aeff8c8b57a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV7
+    second: {fileID: 2100000, guid: 0cb2a3862ff07d643beb9c1f44b276ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TV8
+    second: {fileID: 2100000, guid: 020e4e9375dc0e344918b65d80eb5092, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o"
+    second: {fileID: 2100000, guid: 7cf94a2bb0d4ff94fb4b9d5d897af009, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.001"
+    second: {fileID: 2100000, guid: 0109c33bf84703b4bae82b4f0feb1215, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.002"
+    second: {fileID: 2100000, guid: 622340fcf566f1b41aaaabb21c59fb6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.003"
+    second: {fileID: 2100000, guid: 92f7f6f2f4be1684090549bee868bc92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.004"
+    second: {fileID: 2100000, guid: d4892f202599e1d4fa0e7a5fa38583cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.005"
+    second: {fileID: 2100000, guid: 1aec0235bc1b67e46bfddd0ce461d0ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.006"
+    second: {fileID: 2100000, guid: 8ba95b360b69b2045ac6d820ef0f99ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.007"
+    second: {fileID: 2100000, guid: 80087052a633c0847abc71f5565336e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.008"
+    second: {fileID: 2100000, guid: 9bb6ab852491465458d5364265432641, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.009"
+    second: {fileID: 2100000, guid: 4940dc15cb30cb947adf1978acee5692, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.010"
+    second: {fileID: 2100000, guid: 2676f4bc27f9ec94183de9cc493f559d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.011"
+    second: {fileID: 2100000, guid: 9597c000a974ffc488046d717e708d07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.012"
+    second: {fileID: 2100000, guid: da7466ac04f0bd447a983e7f92192b72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Tubo de Ventila\xE7\xE3o.013"
+    second: {fileID: 2100000, guid: 8cf5382a4ed97c244841035d6ebd7c3b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vidro2
+    second: {fileID: 2100000, guid: 2233fd990c03b5b4ea5863cab3e3bfc1, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
