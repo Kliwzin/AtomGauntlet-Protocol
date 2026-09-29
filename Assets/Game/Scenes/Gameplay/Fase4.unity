@@ -151,8 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueManager: {fileID: 2091558679}
   falas:
-  - texto: "Um rato como tu... a dar-me a fuga perfeita. Devia agradecer-te. Mas
-      n\xE3o te vou deixar sair vivo."
+  - texto: "Um rato como tu... a dar-me a fuga perfeita. Devia agradecer-te. Mas n\xE3o te vou deixar sair vivo."
     nome: ORION
     falante: 1
   dispararUmaVez: 1
@@ -353,6 +352,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &129201972
 MeshFilter:
@@ -773,14 +773,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477623149}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -825,7 +825,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -979,14 +979,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664048353}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 0.010772075, g: 0, b: 0.41509432, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -1031,7 +1031,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -1215,8 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueManager: {fileID: 2091558679}
   falas:
-  - texto: "O hangar, banhado pela luz fria das estrelas que cercam Carcere. A liberdade
-      nunca esteve t\xE3o perto nem t\xE3o longe."
+  - texto: "O hangar, banhado pela luz fria das estrelas que cercam Carcere. A liberdade nunca esteve t\xE3o perto nem t\xE3o longe."
     nome: NARRADOR
     falante: 2
   dispararUmaVez: 1
@@ -1396,8 +1395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3434258270430629827, guid: 8d56fb7f794a8e84db7ffadfc85b663f, type: 3}
       propertyPath: falaNovaFase.Array.data[0].texto
-      value: Quanto mais ferido, mais perigoso, Orion ganha novos ataques a cada
-        fase.
+      value: Quanto mais ferido, mais perigoso, Orion ganha novos ataques a cada fase.
       objectReference: {fileID: 0}
     - target: {fileID: 3434258270430629827, guid: 8d56fb7f794a8e84db7ffadfc85b663f, type: 3}
       propertyPath: falaNovaFase.Array.data[0].falante
@@ -1441,8 +1439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122147010745085922, guid: 8d56fb7f794a8e84db7ffadfc85b663f, type: 3}
       propertyPath: falaInicioCombate.Array.data[0].texto
-      value: "N\xE3o d\xE1 para fugir desta. Os golpes v\xEAm de todo o lado, ler
-        o ritmo e atacar nas aberturas."
+      value: "N\xE3o d\xE1 para fugir desta. Os golpes v\xEAm de todo o lado, ler o ritmo e atacar nas aberturas."
       objectReference: {fileID: 0}
     - target: {fileID: 7264342074182356998, guid: 8d56fb7f794a8e84db7ffadfc85b663f, type: 3}
       propertyPath: screenOffset.y
@@ -1547,6 +1544,32 @@ Transform:
   - {fileID: 188325074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1145471787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8068073526183931155, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
+  m_PrefabInstance: {fileID: 1815612736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1145471791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145471787}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9999999, y: 2, z: 2}
+  m_Center: {x: -0.0000019073486, y: 0.00000035762787, z: 0.000013828278}
 --- !u!1 &1175447491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4562266686271685020, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
@@ -2040,6 +2063,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -90.38
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 66.37
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
       propertyPath: m_Name
       value: Nivel4_Cenario
@@ -2067,6 +2098,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1466688328}
+    - targetCorrespondingSourceObject: {fileID: -8068073526183931155, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1145471791}
     - targetCorrespondingSourceObject: {fileID: -4562266686271685020, guid: ec79b7416bb1ab648b877baecdd71938, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1175447493}
