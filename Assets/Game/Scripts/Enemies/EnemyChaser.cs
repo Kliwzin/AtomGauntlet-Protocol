@@ -24,7 +24,18 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] private float attackRange = 1.6f;
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackCooldown = 1.2f;
-    [SerializeField] private float attackWindup = 0.2f;
+
+    [Header("Combo")]
+    [SerializeField] private float attackClipLength = 3.167f;
+    [SerializeField, Range(0f, 1f)] private float firstImpact = 0.095f;
+    [SerializeField, Range(0f, 1f)] private float secondImpact = 0.558f;
+    [SerializeField] private float jabTime = 0.25f;         // do início até o 1º soco
+    [SerializeField] private float crossWindupTime = 1.2f;  // do 1º ao 2º soco: o aviso
+    [SerializeField] private float recoveryTime = 0.8f;     // do 2º soco ao fim: a janela
+    [SerializeField] private float jabDamage = 4f;          // o 2º soco usa o Attack Damage
+    [SerializeField] private float comboMoveSpeed = 1.2f;
+    [SerializeField] private float comboTurnSpeed = 3f;
+    [SerializeField] private float hitArc = 100f;
 
     [Header("Natural Movement")]
     [SerializeField] private float acceleration = 8f;
@@ -106,8 +117,8 @@ public class EnemyChaser : MonoBehaviour
                 break;
 
             case EnemyState.Attacking:
-                ApplyIdleMovement();
-                FaceTarget();
+                FaceTarget(comboTurnSpeed);
+                AdvanceDuringCombo();
                 break;
         }
     }
@@ -165,6 +176,11 @@ public class EnemyChaser : MonoBehaviour
 
     private void FaceTarget()
     {
+        FaceTarget(turnSpeed);
+    }
+
+    private void FaceTarget(float speed)
+    {
         if (target == null) return;
 
         Vector3 direction = target.position - transform.position;
@@ -178,7 +194,7 @@ public class EnemyChaser : MonoBehaviour
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
-            turnSpeed * Time.fixedDeltaTime
+            speed * Time.fixedDeltaTime
         );
     }
 
@@ -190,31 +206,81 @@ public class EnemyChaser : MonoBehaviour
     private System.Collections.IEnumerator AttackRoutine()
     {
         isAttackInProgress = true;
-        lastAttackTime = Time.time;
 
-        ApplyIdleMovement();
-        FaceTarget();
+        // Quanto tempo cada trecho dura no clip original.
+        float clipToFirst = attackClipLength * firstImpact;
+        float clipToSecond = attackClipLength * (secondImpact - firstImpact);
+        float clipToEnd = attackClipLength * (1f - secondImpact);
 
+        // Trecho 1: jab rápido.
+        SetAttackSpeed(clipToFirst / jabTime);
         if (animator != null)
             animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(attackWindup);
+        yield return new WaitForSeconds(jabTime);
+        TryHitTarget(jabDamage);
 
-        if (target != null)
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        // Trecho 2: preparação do soco forte (o aviso).
+        SetAttackSpeed(clipToSecond / crossWindupTime);
+        yield return new WaitForSeconds(crossWindupTime);
+        TryHitTarget(attackDamage);
 
-            if (distanceToTarget <= attackRange + 0.2f)
-            {
-                if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
-                    damageable.TakeDamage(attackDamage);
-            }
-        }
-
-        yield return new WaitForSeconds(0.2f);
+        // Trecho 3: recuperação (a janela do jogador).
+        SetAttackSpeed(clipToEnd / recoveryTime);
+        yield return new WaitForSeconds(recoveryTime);
 
         isAttackInProgress = false;
+        lastAttackTime = Time.time;
         currentState = EnemyState.Chasing;
+    }
+
+    private void SetAttackSpeed(float speed)
+    {
+        if (animator != null)
+            animator.SetFloat("AttackSpeed", speed);
+    }
+
+    private void AdvanceDuringCombo()
+    {
+        Vector3 toTarget = target.position - transform.position;
+        toTarget.y = 0f;
+
+        if (toTarget.magnitude <= stoppingDistance)
+        {
+            ApplyIdleMovement();
+            return;
+        }
+
+        Vector3 step = toTarget.normalized * comboMoveSpeed;
+        Vector3 velocity = rb.linearVelocity;
+        velocity.x = step.x;
+        velocity.z = step.z;
+        rb.linearVelocity = velocity;
+    }
+
+    private void TryHitTarget(float damage)
+    {
+        if (target == null) return;
+
+        Vector3 toTarget = target.position - transform.position;
+        toTarget.y = 0f;
+
+        if (toTarget.magnitude > attackRange + 0.2f) return;
+
+        Vector3 facing = transform.rotation *
+                         Quaternion.Inverse(Quaternion.Euler(modelRotationOffset)) *
+                         Vector3.forward;
+        facing.y = 0f;
+
+        if (Vector3.Angle(facing, toTarget) > hitArc * 0.5f) return;
+
+        if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
+            damageable.TakeDamage(damage);
+    }
+
+    private void OnDisable()
+    {
+        isAttackInProgress = false;
     }
 
     private void OnDrawGizmosSelected()

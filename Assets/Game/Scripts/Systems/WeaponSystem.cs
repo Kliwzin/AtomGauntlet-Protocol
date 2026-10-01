@@ -337,20 +337,7 @@ public class WeaponSystem : MonoBehaviour
 
     private float CalculateWeaponDamage(int weaponIndex, float baseDamage, GameObject target)
     {
-        if (weaponIndex == -1)
-            return baseDamage;
-
-        if (weaponIndex == 2)
-        {
-            EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
-
-            if (enemyHealth != null)
-            {
-                float missingHealthFactor = 1f - enemyHealth.GetHealthPercent();
-                return baseDamage + (baseDamage * missingHealthFactor);
-            }
-        }
-
+        // Sem bônus por arma: o machado finaliza pela execução, não pelo dano.
         return baseDamage;
     }
 
