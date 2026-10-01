@@ -24,7 +24,11 @@ public class GuardEnemy : MonoBehaviour
     [SerializeField] private float attackRange = 1.6f;
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackCooldown = 1.2f;
-    [SerializeField] private float attackWindup = 0.2f;
+    [SerializeField] private float attackDuration = 1.2f;
+    [SerializeField] private float attackClipLength = 2.042f;
+    [SerializeField, Range(0f, 1f)] private float impactPoint = 0.735f;
+    [SerializeField, Range(0f, 1f)] private float trackingPortion = 0.5f;
+    [SerializeField] private float hitArc = 100f;
 
     [Header("Natural Movement")]
     [SerializeField] private float acceleration = 8f;
@@ -37,6 +41,7 @@ public class GuardEnemy : MonoBehaviour
     private EnemyState currentState = EnemyState.Idle;
     private float lastAttackTime = -999f;
     private bool isAttackInProgress = false;
+    private bool isTracking = false;
 
     private void Awake()
     {
@@ -107,7 +112,8 @@ public class GuardEnemy : MonoBehaviour
 
             case EnemyState.Attacking:
                 ApplyIdleMovement();
-                FaceTarget();
+                if (isTracking)
+                    FaceTarget();
                 break;
         }
     }
@@ -190,31 +196,60 @@ public class GuardEnemy : MonoBehaviour
     private System.Collections.IEnumerator AttackRoutine()
     {
         isAttackInProgress = true;
-        lastAttackTime = Time.time;
-
-        ApplyIdleMovement();
-        FaceTarget();
+        isTracking = true;
 
         if (animator != null)
-            animator.SetTrigger("Attack");
-
-        yield return new WaitForSeconds(attackWindup);
-
-        if (target != null)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-            if (distanceToTarget <= attackRange + 0.2f)
-            {
-                if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
-                    damageable.TakeDamage(attackDamage);
-            }
+            animator.SetFloat("AttackSpeed", attackClipLength / attackDuration);
+            animator.SetTrigger("Attack");
         }
 
-        yield return new WaitForSeconds(0.2f);
+        float windup = attackDuration * impactPoint;
+
+        yield return new WaitForSeconds(windup * trackingPortion);
+
+        isTracking = false;
+        yield return new WaitForSeconds(windup * (1f - trackingPortion));
+
+        // Impacto.
+        TryHitTarget();
+
+        // Recuperação.
+        yield return new WaitForSeconds(attackDuration * (1f - impactPoint));
 
         isAttackInProgress = false;
+        lastAttackTime = Time.time;
         currentState = EnemyState.Chasing;
+    }
+
+    private void TryHitTarget()
+    {
+        if (target == null) return;
+
+        Vector3 toTarget = target.position - transform.position;
+        toTarget.y = 0f;
+
+        if (toTarget.magnitude > attackRange + 0.2f) return;
+        if (Vector3.Angle(GetFacingDirection(), toTarget) > hitArc * 0.5f) return;
+
+        if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
+            damageable.TakeDamage(attackDamage);
+    }
+
+    private Vector3 GetFacingDirection()
+    {
+        // Desfaz o offset do modelo para achar a frente "real" do guarda.
+        Vector3 facing = transform.rotation *
+                         Quaternion.Inverse(Quaternion.Euler(modelRotationOffset)) *
+                         Vector3.forward;
+        facing.y = 0f;
+        return facing.normalized;
+    }
+
+    private void OnDisable()
+    {
+        isAttackInProgress = false;
+        isTracking = false;
     }
 
     private void OnDrawGizmosSelected()
