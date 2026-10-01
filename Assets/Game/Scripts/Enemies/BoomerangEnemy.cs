@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BoomerangEnemy : MonoBehaviour
@@ -14,17 +15,25 @@ public class BoomerangEnemy : MonoBehaviour
     [SerializeField] private float moveSpeed = 2.5f;
     [SerializeField] private float stoppingDistance = 5f;
     [SerializeField] private float fleeDistance = 3.5f;
+    [SerializeField] private float turnSpeed = 10f;
 
     [Header("Attack")]
     [SerializeField] private BoomerangProjectile projectilePrefab;
     [SerializeField] private Transform throwPoint;
-    [SerializeField] private float attackCooldown = 1.2f;
+    [SerializeField] private float attackCooldown = 1.2f; // pausa depois de pegar o bumerangue de volta
+    [SerializeField] private float throwDuration = 1.4f;
+    [SerializeField] private float throwClipLength = 2.167f;
+    [SerializeField, Range(0f, 1f)] private float releasePoint = 0.673f;
+    [SerializeField, Range(0f, 1f)] private float trackingPortion = 0.5f;
+    [SerializeField] private GameObject heldBoomerangModel;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
     private Rigidbody rb;
     private bool projectileActive = false;
+    private bool isThrowing = false;
+    private bool isTracking = false;
     private float lastAttackTime = -999f;
 
     private void Awake()
@@ -73,7 +82,16 @@ public class BoomerangEnemy : MonoBehaviour
             return;
         }
 
-        FacePlayer();
+        if (!isThrowing || isTracking)
+        {
+            FacePlayer();
+        }
+            
+        if (isThrowing)
+        {
+            StopMoving();
+            return;
+        }
 
         if (distance < fleeDistance)
         {
@@ -145,40 +163,81 @@ public class BoomerangEnemy : MonoBehaviour
         Vector3 direction = target.position - transform.position;
         direction.y = 0f;
 
-        if (Mathf.Abs(direction.x) < 0.01f) return;
+        if (direction.sqrMagnitude < 0.01f) return;
 
-        transform.forward = new Vector3(Mathf.Sign(direction.x), 0f, 0f);
+        Quaternion look = Quaternion.LookRotation(direction.normalized);
+        transform.rotation = Quaternion.Slerp(transform.rotation, look, turnSpeed * Time.fixedDeltaTime);
     }
 
     private void TryThrowProjectile()
     {
-        if (projectileActive) return;
+        if (isThrowing || projectileActive) return;
         if (Time.time < lastAttackTime + attackCooldown) return;
         if (projectilePrefab == null || throwPoint == null) return;
 
-        lastAttackTime = Time.time;
-        projectileActive = true;
+        StartCoroutine(ThrowRoutine());
+    }
 
-        // dispara a animação de arremesso
+    private IEnumerator ThrowRoutine()
+    {
+        isThrowing = true;
+        StopMoving();
+
         if (animator != null)
+        {
+            animator.SetFloat("AttackSpeed", throwClipLength / throwDuration);
             animator.SetTrigger("Throw");
+        }
 
-        BoomerangProjectile projectile = Instantiate(
-            projectilePrefab,
-            throwPoint.position,
-            Quaternion.identity
-        );
+        float windup = throwDuration * releasePoint;
+        isTracking = true;
 
-        projectile.Initialize(
-            owner: this,
-            ownerTransform: transform,
-            targetTransform: target
-        );
+        // Preparação, parte 1: ainda vira para o jogador.
+        yield return new WaitForSeconds(windup * trackingPortion);
+
+        // Preparação, parte 2: direção travada.
+        isTracking = false;
+        yield return new WaitForSeconds(windup * (1f - trackingPortion));
+
+        // Soltura.
+        if (target != null)
+        {
+            projectileActive = true;
+
+            if (heldBoomerangModel != null)
+                heldBoomerangModel.SetActive(false);
+
+            BoomerangProjectile projectile = Instantiate(
+                projectilePrefab,
+                throwPoint.position,
+                Quaternion.identity
+            );
+
+            projectile.Initialize(
+                owner: this,
+                ownerTransform: transform,
+                targetTransform: target
+            );
+        }
+
+        // Recuperação.
+        yield return new WaitForSeconds(throwDuration * (1f - releasePoint));
+
+        isThrowing = false;
     }
 
     public void OnProjectileReturned()
     {
         projectileActive = false;
+        lastAttackTime = Time.time; // a pausa começa quando ele pega de volta
+
+        if (heldBoomerangModel != null)
+            heldBoomerangModel.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        isThrowing = false;
     }
 
     private void OnDrawGizmosSelected()

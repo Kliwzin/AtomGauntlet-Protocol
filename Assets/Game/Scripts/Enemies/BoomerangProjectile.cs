@@ -13,6 +13,7 @@ public class BoomerangProjectile : MonoBehaviour
     [SerializeField] private float speed = 8f;
     [SerializeField] private float returnSpeed = 9f;
     [SerializeField] private float homingStrength = 4f;
+    [SerializeField] private float homingDuration = 0.25f;
     [SerializeField] private float maxTravelTime = 1.2f;
     [SerializeField] private float returnDistance = 0.6f;
 
@@ -37,7 +38,9 @@ public class BoomerangProjectile : MonoBehaviour
 
         if (targetTransform != null)
         {
-            moveDirection = (targetTransform.position - transform.position).normalized;
+            Vector3 toTarget = targetTransform.position - transform.position;
+            toTarget.y = 0f;
+            moveDirection = toTarget.normalized;
         }
         else
         {
@@ -69,9 +72,12 @@ public class BoomerangProjectile : MonoBehaviour
     {
         travelTimer += Time.deltaTime;
 
-        if (targetTransform != null)
+        // Persegue só no começo do voo; depois segue reto.
+        if (targetTransform != null && travelTimer <= homingDuration)
         {
-            Vector3 desiredDirection = (targetTransform.position - transform.position).normalized;
+            Vector3 desiredDirection = targetTransform.position - transform.position;
+            desiredDirection.y = 0f;
+            desiredDirection.Normalize();
 
             moveDirection = Vector3.Lerp(
                 moveDirection,
@@ -83,9 +89,7 @@ public class BoomerangProjectile : MonoBehaviour
         transform.position += moveDirection * speed * Time.deltaTime;
 
         if (travelTimer >= maxTravelTime)
-        {
             state = ProjectileState.Returning;
-        }
     }
 
     private void ReturnToOwner()
