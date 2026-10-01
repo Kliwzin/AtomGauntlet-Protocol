@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem;
 
 public class WeaponSystem : MonoBehaviour
@@ -33,7 +34,15 @@ public class WeaponSystem : MonoBehaviour
     private int lastValidWeaponIndex = 0;
     private bool isUsingFists = false;
 
-    private float lastAttackTime;
+    [Header("Attack Timing")]
+    [SerializeField] private float attackClipLength = 0.75f;
+    [SerializeField, Range(0f, 1f)] private float impactPoint = 0.444f;
+    [SerializeField] private float inputBufferTime = 0.2f;
+
+    private bool isAttacking = false;
+    private bool attackQueued = false;
+    private float attackEndTime = 0f;
+
     private Animator animator;
     private CameraFollow cameraFollow;
 
@@ -65,6 +74,15 @@ public class WeaponSystem : MonoBehaviour
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+
+        if (isAttacking)
+        {
+            if (Time.time >= attackEndTime - inputBufferTime)
+                attackQueued = true;
+
+            return;
+        }
+
         TryAttack();
     }
 
@@ -139,6 +157,7 @@ public class WeaponSystem : MonoBehaviour
     private void TrySelectWeapon(int index)
     {
         if (GameSession.Instance == null) return;
+        if (isAttacking) return;
 
         if (isUsingFists)
         {
@@ -178,6 +197,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void TryAttack()
     {
+        if (isAttacking) return;
         if (GameSession.Instance == null) return;
         if (weapons == null || weapons.Length == 0) return;
         if (currentWeaponIndex < 0 || currentWeaponIndex >= weapons.Length) return;
@@ -188,9 +208,6 @@ public class WeaponSystem : MonoBehaviour
         int weaponIndexToUse = isUsingFists ? -1 : currentWeaponIndex;
 
         if (weaponToUse == null) return;
-
-        bool cooldownReady = Time.time - lastAttackTime >= weaponToUse.attackCooldown;
-        if (!cooldownReady) return;
 
         if (!isUsingFists && weaponToUse.requiresEnergy)
         {
@@ -206,22 +223,43 @@ public class WeaponSystem : MonoBehaviour
             }
         }
 
-        lastAttackTime = Time.time;
+        StartCoroutine(AttackRoutine(weaponToUse, weaponIndexToUse));
+    }
 
-        // Animação de ataque única (serve para todas as armas).
+    private IEnumerator AttackRoutine(Weapon weapon, int weaponIndex)
+    {
+        isAttacking = true;
+
+        float duration = Mathf.Max(0.05f, weapon.attackCooldown);
+        attackEndTime = Time.time + duration;
+
         if (animator != null)
+        {
+            animator.SetFloat("AttackSpeed", attackClipLength / duration);
             animator.SetTrigger("Attack");
+        }
 
-        bool hitSomeone = DetectAndHitTargets(weaponToUse, weaponIndexToUse);
+        Debug.Log("Atacou com " + weapon.weaponName);
 
+        // Preparação: a arma ainda não chegou.
+        yield return new WaitForSeconds(duration * impactPoint);
+
+        // Impacto.
+        bool hitSomeone = DetectAndHitTargets(weapon, weaponIndex);
         if (hitSomeone && cameraFollow != null)
             cameraFollow.Shake();
 
-        Debug.Log(isUsingFists
-            ? "Atacou com os punhos."
-            : "Atacou com " + weapons[currentWeaponIndex].weaponName);
+        // Recuperação.
+        yield return new WaitForSeconds(duration * (1f - impactPoint));
 
+        isAttacking = false;
         UpdateForcedFistsState();
+
+        if (attackQueued)
+        {
+            attackQueued = false;
+            TryAttack();
+        }
     }
 
     private bool DetectAndHitTargets(Weapon currentWeapon, int weaponIndex)
@@ -367,4 +405,11 @@ public class WeaponSystem : MonoBehaviour
 
     public int CurrentWeaponIndex => isUsingFists ? -1 : currentWeaponIndex;
     public bool IsUsingFists => isUsingFists;
+    public bool IsAttacking => isAttacking;
+
+    private void OnDisable()
+    {
+        isAttacking = false;
+        attackQueued = false;
+    }
 }
