@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944640608944883508, guid: 1461665663a2c5940981daa933b94302, type: 3}
       propertyPath: ignoreAxeUnlockForTesting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

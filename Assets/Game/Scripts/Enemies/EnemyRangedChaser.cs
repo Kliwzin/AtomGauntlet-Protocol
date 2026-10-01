@@ -24,8 +24,13 @@ public class EnemyRangedChaser : MonoBehaviour
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private EnemyProjectile projectilePrefab;
     [SerializeField] private float projectileDamage = 10f;
-    [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private float shootWindup = 0.3f;
+    [SerializeField] private float attackCooldown = 1.5f; // pausa depois de cada tiro
+    [SerializeField] private float shootDuration = 1.3f;
+    [SerializeField] private float shootClipLength = 3f;
+    [SerializeField, Range(0f, 1f)] private float releasePoint = 0.811f;
+    [SerializeField, Range(0f, 1f)] private float trackingPortion = 0.6f;
+    [SerializeField] private float spitGravity = 12f;
+    [SerializeField] private float aimHeight = 0.3f;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
@@ -38,6 +43,8 @@ public class EnemyRangedChaser : MonoBehaviour
     private bool isBackstepping = false;
     private float lastAttackTime = -999f;
     private float lastBackstepTime = -999f;
+    private bool isTracking = false;
+    private Coroutine shootCoroutine;
 
     private void Awake()
     {
@@ -93,7 +100,11 @@ public class EnemyRangedChaser : MonoBehaviour
             return;
         }
 
-        FaceTarget();
+        if (!isShooting || isTracking)
+        {
+            FaceTarget();
+        }
+            
         StopMovement(); // o atirador é estacionário por defeito
 
         // jogador colou: dá um recuo curto (se já passou o cooldown)
@@ -114,7 +125,7 @@ public class EnemyRangedChaser : MonoBehaviour
         lastBackstepTime = Time.time;
 
         // cancela tiro a meio, se houver
-        isShooting = false;
+        CancelShot();
 
         float t = 0f;
         while (t < backstepDuration)
@@ -159,42 +170,75 @@ public class EnemyRangedChaser : MonoBehaviour
 
     private void ShootProjectile()
     {
-        lastAttackTime = Time.time;
-        StartCoroutine(ShootRoutine());
+        shootCoroutine = StartCoroutine(ShootRoutine());
     }
 
     private IEnumerator ShootRoutine()
     {
         isShooting = true;
+        isTracking = true;
 
-        // toca a animação de atirar no início do windup
         if (animator != null)
-            animator.SetTrigger(shootTrigger);
-
-        yield return new WaitForSeconds(shootWindup);
-
-        // se perdeu o alvo ou começou a recuar durante o windup, cancela
-        if (target == null || isBackstepping)
         {
-            isShooting = false;
-            yield break;
+            animator.SetFloat("AttackSpeed", shootClipLength / shootDuration);
+            animator.SetTrigger(shootTrigger);
         }
 
-        Vector3 spawnPos = projectileSpawnPoint != null
-            ? projectileSpawnPoint.position
-            : transform.position + transform.forward;
+        float windup = shootDuration * releasePoint;
 
-        Vector3 dir = target.position - spawnPos;
-        dir.y = 0f;
-        dir.Normalize();
+        // Preparação, parte 1: mira acompanha o jogador.
+        yield return new WaitForSeconds(windup * trackingPortion);
 
-        if (projectilePrefab != null)
+        // Preparação, parte 2: mira travada.
+        isTracking = false;
+        yield return new WaitForSeconds(windup * (1f - trackingPortion));
+
+        // Disparo, para onde ele está olhando.
+        if (target != null && projectilePrefab != null)
         {
+            Vector3 spawnPos = projectileSpawnPoint != null
+                ? projectileSpawnPoint.position
+                : transform.position + transform.forward;
+
+            Vector3 dir = transform.forward;
+            dir.y = 0f;
+            dir.Normalize();
+
+            Vector3 toTarget = target.position - spawnPos;
+            float heightDelta = (target.position.y + aimHeight) - spawnPos.y;
+            toTarget.y = 0f;
+            float horizontalDistance = toTarget.magnitude;
+
             EnemyProjectile proj = Instantiate(projectilePrefab, spawnPos, Quaternion.LookRotation(dir));
-            proj.Initialize(dir, projectileDamage);
+            proj.InitializeArc(dir, projectileDamage, horizontalDistance, heightDelta, spitGravity);
+        }
+
+        // Recuperação.
+        yield return new WaitForSeconds(shootDuration * (1f - releasePoint));
+
+        isShooting = false;
+        shootCoroutine = null;
+        lastAttackTime = Time.time;
+    }
+
+    private void CancelShot()
+    {
+        if (shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            shootCoroutine = null;
         }
 
         isShooting = false;
+        isTracking = false;
+        lastAttackTime = Time.time; // pausa antes de tentar de novo
+    }
+
+    private void OnDisable()
+    {
+        isShooting = false;
+        isTracking = false;
+        isBackstepping = false;
     }
 
     private void FaceTarget()

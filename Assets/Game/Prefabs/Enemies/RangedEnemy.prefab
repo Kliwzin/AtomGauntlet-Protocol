@@ -148,8 +148,8 @@ MonoBehaviour:
   playerTag: Player
   detectionRange: 20
   loseTargetRange: 22
-  tooCloseDistance: 15
-  backstepSpeed: 4.5
+  tooCloseDistance: 4
+  backstepSpeed: 4
   backstepDuration: 0.4
   backstepCooldown: 0.8
   turnSpeed: 15
@@ -157,7 +157,12 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6246625577090744644, guid: 44cf76fda5572e04188ab5b5e5533b41, type: 3}
   projectileDamage: 10
   attackCooldown: 0.8
-  shootWindup: 0.3
+  shootDuration: 1.3
+  shootClipLength: 3
+  releasePoint: 0.811
+  trackingPortion: 0.6
+  spitGravity: 5
+  aimHeight: 0.4
   animator: {fileID: 1622190591255162884}
   shootTrigger: Shoot
   speedParam: Speed
