@@ -125,7 +125,16 @@ MonoBehaviour:
   attackRange: 1.6
   attackDamage: 3
   attackCooldown: 1.2
-  attackWindup: 0.2
+  attackClipLength: 3.167
+  firstImpact: 0.095
+  secondImpact: 0.558
+  jabTime: 0.25
+  crossWindupTime: 1.2
+  recoveryTime: 0.8
+  jabDamage: 4
+  comboMoveSpeed: 1.2
+  comboTurnSpeed: 3
+  hitArc: 100
   acceleration: 8
   deceleration: 10
   animator: {fileID: 6597199373672605725}
@@ -157,7 +166,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 862344215923629746}
   orionHealth: {fileID: 0}
   promptTarget: {fileID: 0}
-  executeThreshold: 0.2
+  executeThreshold: 0.4
   executeRange: 2
 --- !u!1001 &785702528928961932
 PrefabInstance:

@@ -152,12 +152,14 @@ MonoBehaviour:
   moveSpeed: 4
   stoppingDistance: 10
   fleeDistance: 10
+  turnSpeed: 10
   projectilePrefab: {fileID: 8591605197243350314, guid: 409ba3ae7b8604e4eba3d14afcbb9bed, type: 3}
   throwPoint: {fileID: 9006438605921751938}
   attackCooldown: 1
   throwDuration: 1.2
   throwClipLength: 2.167
   releasePoint: 0.673
+  trackingPortion: 0.5
   heldBoomerangModel: {fileID: 0}
   animator: {fileID: 6513327692613801437}
 --- !u!114 &5562335860357771833
@@ -188,7 +190,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 4420826147642411067}
   orionHealth: {fileID: 0}
   promptTarget: {fileID: 5562335860357771833}
-  executeThreshold: 0.2
+  executeThreshold: 0.4
   executeRange: 2
 --- !u!1001 &795281910106777676
 PrefabInstance:

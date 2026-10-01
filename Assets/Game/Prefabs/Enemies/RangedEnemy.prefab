@@ -194,7 +194,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 862344215923629746}
   orionHealth: {fileID: 0}
   promptTarget: {fileID: 0}
-  executeThreshold: 0.2
+  executeThreshold: 0.4
   executeRange: 2
 --- !u!1001 &5181875253151665557
 PrefabInstance:
