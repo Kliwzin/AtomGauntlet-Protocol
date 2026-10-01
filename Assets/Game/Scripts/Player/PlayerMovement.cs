@@ -29,6 +29,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
+    [Header("Combat")]
+    [SerializeField, Range(0f, 1f)] private float attackMoveMultiplier = 0.3f;
+    [SerializeField] private bool lockRotationWhileAttacking = true;
+
+    private WeaponSystem weaponSystem;
+
     private bool isOnLadder = false;
     private bool inLadderZone = false;
     private Ladder currentLadder;
@@ -42,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
+        weaponSystem = GetComponent<WeaponSystem>();
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX |
                          RigidbodyConstraints.FreezeRotationY |
@@ -83,9 +90,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        bool attacking = weaponSystem != null && weaponSystem.IsAttacking;
+        float speedMultiplier = attacking ? attackMoveMultiplier : 1f;
+
         Vector3 velocity = rb.linearVelocity;
-        velocity.x = input.x * moveSpeed;
-        velocity.z = input.y * depthSpeed;
+        velocity.x = input.x * moveSpeed * speedMultiplier;
+        velocity.z = input.y * depthSpeed * speedMultiplier;
         rb.linearVelocity = velocity;
 
         if (useDepthClamp)
@@ -95,9 +105,10 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(clampedPosition);
         }
 
+        bool canRotate = !(attacking && lockRotationWhileAttacking);
         Vector3 moveDirection = new Vector3(input.x, 0f, input.y);
 
-        if (moveDirection.sqrMagnitude > 0.01f)
+        if (canRotate && moveDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection.normalized);
 
