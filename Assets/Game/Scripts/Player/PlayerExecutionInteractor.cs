@@ -7,9 +7,6 @@ public class PlayerExecutionInteractor : MonoBehaviour
     [SerializeField] private int axeWeaponIndex = 2;
     [SerializeField] private float holdDuration = 0.8f;
 
-    [Header("Debug")]
-    [SerializeField] private bool ignoreAxeUnlockForTesting = false;
-
     [Header("UI")]
     [SerializeField] private WorldExecutionIconUI executionUI;
 
@@ -45,9 +42,6 @@ public class PlayerExecutionInteractor : MonoBehaviour
 
     private bool AxeUnlocked()
     {
-        if (ignoreAxeUnlockForTesting)
-            return true;
-
         return GameSession.Instance != null &&
                GameSession.Instance.HasWeaponAddon(axeWeaponIndex);
     }

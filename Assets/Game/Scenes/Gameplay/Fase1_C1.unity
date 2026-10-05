@@ -280,8 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueManager: {fileID: 1308515067}
   falas:
-  - texto: "Vinte e oito anos de pena. Mas Polo sabe que n\xE3o vai viver o suficiente
-      para os cumprir. A \xFAnica sa\xEDda... \xE9 fugir."
+  - texto: "Vinte e oito anos de pena. Mas Polo sabe que n\xE3o vai viver o suficiente para os cumprir. A \xFAnica sa\xEDda... \xE9 fugir."
     nome: NARRADOR
     falante: 2
   dispararUmaVez: 1
@@ -407,8 +406,7 @@ MonoBehaviour:
   distanciaChegada: 0.5
   dialogueManager: {fileID: 1308515067}
   falaAoVer:
-  - texto: "Um guarda viu tudo e fugiu para dar o alarme. Agora toda a pris\xE3o
-      sabe que Polo est\xE1 solto."
+  - texto: "Um guarda viu tudo e fugiu para dar o alarme. Agora toda a pris\xE3o sabe que Polo est\xE1 solto."
     nome: NARRADOR
     falante: 2
   - texto: "Uns pedem ajuda, outros j\xE1 avisaram o Orion. N\xE3o confio em ningu\xE9m"
@@ -581,6 +579,52 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 41.85, y: 16.11, z: -27}
   m_LocalScale: {x: 20, y: 10, z: 20}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625629826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625629828}
+  - component: {fileID: 625629827}
+  m_Layer: 0
+  m_Name: _Debug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &625629827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625629826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4253356fefb55c14eb609964562703e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugLoadout
+  unlockHammer: 1
+  unlockAxe: 1
+--- !u!4 &625629828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625629826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.44196, y: 6.05732, z: -33.475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1459,8 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueManager: {fileID: 1308515067}
   falas:
-  - texto: "A l\xE2mina corta o metal como \xE1gua. Mas gasta energia a cada golpe
-      - tenho de a poupar."
+  - texto: "A l\xE2mina corta o metal como \xE1gua. Mas gasta energia a cada golpe - tenho de a poupar."
     nome: POLO
     falante: 0
   dispararUmaVez: 1
@@ -1846,3 +1889,4 @@ SceneRoots:
   - {fileID: 277595073}
   - {fileID: 2125024977}
   - {fileID: 442596830}
+  - {fileID: 625629828}
