@@ -39,12 +39,14 @@ public class OrionBossController : MonoBehaviour
     private int sealLevel = 0;
     private int stunHitsTaken = 0;
     private float stunTimer = 0f;
+    private int segmentsBroken = 0;
 
     public BossState State => state;
     public int SealLevel => sealLevel;
     public bool IsStunned => state == BossState.Stunned;
     public int StunHitsTaken => stunHitsTaken;
     public int HitsToBreakStunAggressive => hitsToBreakStunAggressive;
+    public int SegmentsBroken => segmentsBroken;
 
     private void Start()
     {
@@ -161,7 +163,10 @@ public class OrionBossController : MonoBehaviour
     private void ChangeSealLevel(int amount)
     {
         sealLevel = Mathf.Clamp(sealLevel + amount, -2, 2);
-        Debug.Log("Seal Level atual: " + sealLevel);
+
+        segmentsBroken++;
+
+        Debug.Log($"Seal Level: {sealLevel} | Blocos quebrados: {segmentsBroken}");
     }
 
     private void ExitStun()

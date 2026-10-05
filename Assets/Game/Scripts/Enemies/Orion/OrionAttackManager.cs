@@ -8,6 +8,8 @@ public class OrionAttackManager : MonoBehaviour
     [Header("Special Attack Timing")]
     [SerializeField] private float baseSpecialAttackInterval = 3.5f;
     [SerializeField] private float maxBusySafetyTime = 5f;
+    [SerializeField] private float[] segmentIntervalFactors = { 1f, 0.85f, 0.7f };
+    [SerializeField] private float meleeReactionTime = 0.8f;
 
     [Header("Seal Damage Multipliers")]
     [SerializeField] private float sealMinus2DamageMultiplier = 1.6f;
@@ -30,6 +32,7 @@ public class OrionAttackManager : MonoBehaviour
     private bool isActive = false;
     private bool isBusy = false;
     private float specialTimer = 0f;
+    private float closeTimer = 0f;
 
     private void Start()
     {
@@ -55,7 +58,8 @@ public class OrionAttackManager : MonoBehaviour
         if (!isBusy)
             TryMeleeIfPlayerIsClose();
 
-        specialTimer += Time.deltaTime;
+        if (!isBusy)
+            specialTimer += Time.deltaTime;
 
         if (!isBusy && specialTimer >= GetCurrentSpecialAttackInterval())
         {
@@ -89,7 +93,12 @@ public class OrionAttackManager : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= meleeAttack.Range && meleeAttack.CanExecute())
+        if (distanceToPlayer <= meleeAttack.Range)
+            closeTimer += Time.deltaTime;
+        else
+            closeTimer = 0f;
+
+        if (closeTimer >= meleeReactionTime && meleeAttack.CanExecute())
         {
             StartBusyState();
 
@@ -155,6 +164,7 @@ public class OrionAttackManager : MonoBehaviour
     private void StartBusyState()
     {
         isBusy = true;
+        closeTimer = 0f;
         CancelInvoke(nameof(ForceEndBusyState));
 
         movement?.Stop();
@@ -185,15 +195,25 @@ public class OrionAttackManager : MonoBehaviour
 
     private float GetCurrentSpecialAttackInterval()
     {
-        return boss.SealLevel switch
+        float sealFactor = boss.SealLevel switch
         {
-            -2 => baseSpecialAttackInterval * 0.7f,
-            -1 => baseSpecialAttackInterval * 0.85f,
-            0 => baseSpecialAttackInterval,
-            1 => baseSpecialAttackInterval * 1.2f,
-            2 => baseSpecialAttackInterval * 1.4f,
-            _ => baseSpecialAttackInterval
+            -2 => 0.7f,
+            -1 => 0.85f,
+            0 => 1f,
+            1 => 1.2f,
+            2 => 1.4f,
+            _ => 1f
         };
+
+        float segmentFactor = 1f;
+
+        if (segmentIntervalFactors != null && segmentIntervalFactors.Length > 0)
+        {
+            int index = Mathf.Clamp(boss.SegmentsBroken, 0, segmentIntervalFactors.Length - 1);
+            segmentFactor = segmentIntervalFactors[index];
+        }
+
+        return baseSpecialAttackInterval * segmentFactor * sealFactor;
     }
 
     public float GetAttackDamage(float baseDamage)
