@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7804342774236847790}
   - component: {fileID: 7008430297340625416}
   - component: {fileID: 6339985598817963071}
+  - component: {fileID: 9047130510160783515}
   m_Layer: 6
   m_Name: BackSealPoint
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1111388005896271767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 2.254, z: -1.71}
+  m_LocalPosition: {x: 0.05, y: 1, z: -1.71}
   m_LocalScale: {x: 0.91743124, y: 0.8196721, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52,7 +53,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 1.5, y: 2, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6339985598817963071
 MonoBehaviour:
@@ -69,6 +70,19 @@ MonoBehaviour:
   promptTarget: {fileID: 0}
   boss: {fileID: 6122147010745085922}
   holdDuration: 1.5
+--- !u!114 &9047130510160783515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111388005896271767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2341999f4bcf3c94da07af78a8c8bd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPromptTarget
+  screenOffset: {x: 0, y: 1.2, z: 0}
 --- !u!1 &1190644279530143254
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,8 +274,8 @@ GameObject:
   - component: {fileID: 3251922975206895845}
   - component: {fileID: 6122147010745085922}
   - component: {fileID: 3434258270430629827}
-  - component: {fileID: 4217298178594982137}
   - component: {fileID: 8360865147580908093}
+  - component: {fileID: 4217298178594982137}
   - component: {fileID: 8029219998302623767}
   - component: {fileID: 3827812096375624497}
   - component: {fileID: 1297328879437203881}
@@ -388,34 +402,6 @@ MonoBehaviour:
   stoneDefense: {fileID: 1297328879437203881}
   dialogueManager: {fileID: 0}
   falaNovaFase: []
---- !u!114 &4217298178594982137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796296981901483916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f29cd33030a344fb347157be9a76c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OrionAttackManager
-  boss: {fileID: 6122147010745085922}
-  player: {fileID: 0}
-  baseSpecialAttackInterval: 2.5
-  maxBusySafetyTime: 1.5
-  sealMinus2DamageMultiplier: 1.5
-  sealMinus1DamageMultiplier: 1.25
-  sealZeroDamageMultiplier: 1
-  sealPlus1DamageMultiplier: 0.75
-  sealPlus2DamageMultiplier: 0.55
-  meleeAttack: {fileID: 7778748151962183833}
-  lineAttack: {fileID: 8029219998302623767}
-  tentacleAttack: {fileID: 3827812096375624497}
-  stoneDefense: {fileID: 1297328879437203881}
-  turretSpawner: {fileID: 1375638828114544096}
-  movement: {fileID: 8360865147580908093}
-  animationController: {fileID: 9113468123089902833}
 --- !u!114 &8360865147580908093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +418,39 @@ MonoBehaviour:
   keepDistance: 5
   tooCloseDistance: 1
   turnSpeed: 12
+--- !u!114 &4217298178594982137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796296981901483916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f29cd33030a344fb347157be9a76c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrionAttackManager
+  boss: {fileID: 6122147010745085922}
+  player: {fileID: 0}
+  baseSpecialAttackInterval: 2.5
+  maxBusySafetyTime: 1.5
+  segmentIntervalFactors:
+  - 1
+  - 0.85
+  - 0.7
+  meleeReactionTime: 0.8
+  sealMinus2DamageMultiplier: 1.5
+  sealMinus1DamageMultiplier: 1.25
+  sealZeroDamageMultiplier: 1
+  sealPlus1DamageMultiplier: 0.75
+  sealPlus2DamageMultiplier: 0.55
+  meleeAttack: {fileID: 7778748151962183833}
+  lineAttack: {fileID: 8029219998302623767}
+  tentacleAttack: {fileID: 3827812096375624497}
+  stoneDefense: {fileID: 1297328879437203881}
+  turretSpawner: {fileID: 1375638828114544096}
+  movement: {fileID: 8360865147580908093}
+  animationController: {fileID: 9113468123089902833}
 --- !u!114 &8029219998302623767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrionLineAttack
   warningPrefab: {fileID: 7808094324971547407, guid: d4a0a19db29fef747b528f8ac01cdb4c, type: 3}
   attackManager: {fileID: 4217298178594982137}
-  baseDamage: 12
+  baseDamage: 10
   allowMultipleHitsPerAttack: 0
 --- !u!114 &3827812096375624497
 MonoBehaviour:
@@ -520,7 +539,7 @@ MonoBehaviour:
   attackManager: {fileID: 4217298178594982137}
   attackPoint: {fileID: 4574755476300467034}
   range: 2
-  baseDamage: 2
+  baseDamage: 4
   cooldown: 2
   playerLayer:
     serializedVersion: 2

@@ -17,8 +17,17 @@ public class OrionLineAttack : MonoBehaviour
     [SerializeField] private float baseDamage = 12f;
     [SerializeField] private bool allowMultipleHitsPerAttack = false;
 
+    [Header("Universal (todos os lados)")]
+    [SerializeField] private float universalProjectileScale = 0.5f;
+    [SerializeField] private float universalProjectileHeight = 0.4f;
+
     private bool playerAlreadyHitThisAttack = false;
     private PreparedLineAttack preparedAttack = PreparedLineAttack.None;
+    private PreparedLineAttack firedAttack = PreparedLineAttack.None;
+
+    public bool IsUniversalActive => firedAttack == PreparedLineAttack.Universal;
+    public float UniversalProjectileScale => universalProjectileScale;
+    public float UniversalProjectileHeight => universalProjectileHeight;
 
     public void PrepareCardinal()
     {
@@ -43,6 +52,8 @@ public class OrionLineAttack : MonoBehaviour
 
     public void FirePreparedAttack()
     {
+        firedAttack = preparedAttack;
+
         switch (preparedAttack)
         {
             case PreparedLineAttack.Cardinal:

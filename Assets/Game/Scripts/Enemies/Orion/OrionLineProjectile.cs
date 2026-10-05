@@ -18,6 +18,15 @@ public class OrionLineProjectile : MonoBehaviour
         if (direction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(direction);
 
+        if (sourceAttack != null && sourceAttack.IsUniversalActive)
+        {
+            transform.localScale *= sourceAttack.UniversalProjectileScale;
+
+            Vector3 pos = transform.position;
+            pos.y = sourceAttack.transform.position.y + sourceAttack.UniversalProjectileHeight;
+            transform.position = pos;
+        }
+
         Destroy(gameObject, lifeTime);
     }
 
