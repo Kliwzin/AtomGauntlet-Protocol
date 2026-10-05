@@ -96,7 +96,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000u
       curves: []
       events:
-      - time: 0.7461332
+      - time: 0.46425402
         functionName: AnimEvent_SpawnTurrets
         data: 
         objectReferenceParameter: {instanceID: 0}
