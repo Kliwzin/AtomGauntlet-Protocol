@@ -16,6 +16,7 @@ public class WeaponSystem : MonoBehaviour
         public float energyCostPerAttack = 2f;
         public float energyCostToEquip = 1f;
         public bool requiresEnergy = true;
+        public float hitStop = 0.05f;
     }
 
     [Header("Main Weapons")]
@@ -42,6 +43,7 @@ public class WeaponSystem : MonoBehaviour
     private bool isAttacking = false;
     private bool attackQueued = false;
     private float attackEndTime = 0f;
+    private const float HitStopScale = 0.02f;
 
     private Animator animator;
     private CameraFollow cameraFollow;
@@ -116,7 +118,8 @@ public class WeaponSystem : MonoBehaviour
             attackCooldown = fistsAttackCooldown,
             energyCostPerAttack = 0f,
             energyCostToEquip = 0f,
-            requiresEnergy = false
+            requiresEnergy = false,
+            hitStop = 0.03f
         };
     }
 
@@ -246,8 +249,14 @@ public class WeaponSystem : MonoBehaviour
 
         // Impacto.
         bool hitSomeone = DetectAndHitTargets(weapon, weaponIndex);
-        if (hitSomeone && cameraFollow != null)
-            cameraFollow.Shake();
+        if (hitSomeone)
+        {
+            if (cameraFollow != null)
+                cameraFollow.Shake();
+
+            if (weapon.hitStop > 0f)
+                StartCoroutine(HitStop(weapon.hitStop));
+        }
 
         // Recuperação.
         yield return new WaitForSeconds(duration * (1f - impactPoint));
@@ -260,6 +269,19 @@ public class WeaponSystem : MonoBehaviour
             attackQueued = false;
             TryAttack();
         }
+    }
+
+    private IEnumerator HitStop(float duration)
+    {
+        if (Time.timeScale == 0f) yield break;
+
+        float previousScale = Time.timeScale;
+        Time.timeScale = HitStopScale;
+
+        yield return new WaitForSecondsRealtime(duration);
+
+        if (Time.timeScale == HitStopScale)
+            Time.timeScale = previousScale;
     }
 
     private bool DetectAndHitTargets(Weapon currentWeapon, int weaponIndex)

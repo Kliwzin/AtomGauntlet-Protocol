@@ -580,6 +580,7 @@ MonoBehaviour:
     energyCostPerAttack: 3
     energyCostToEquip: 1
     requiresEnergy: 1
+    hitStop: 0.04
   - weaponName: Hammer
     weaponModel: {fileID: 1175599694863422281}
     damage: 7
@@ -589,6 +590,7 @@ MonoBehaviour:
     energyCostPerAttack: 5
     energyCostToEquip: 1
     requiresEnergy: 1
+    hitStop: 0.08
   - weaponName: Axe
     weaponModel: {fileID: 2078786389761443249}
     damage: 10
@@ -598,6 +600,7 @@ MonoBehaviour:
     energyCostPerAttack: 6
     energyCostToEquip: 1
     requiresEnergy: 1
+    hitStop: 0.1
   attackPoint: {fileID: 1096002098530086126}
   enemyLayer:
     serializedVersion: 2
@@ -670,7 +673,6 @@ MonoBehaviour:
   executeKey: 19
   axeWeaponIndex: 2
   holdDuration: 0.8
-  ignoreAxeUnlockForTesting: 0
   executionUI: {fileID: 0}
 --- !u!114 &2780774433838190577
 MonoBehaviour:

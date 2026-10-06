@@ -36,6 +36,11 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float shakeAmount = 0.15f;
     [SerializeField] private float shakeDuration = 0.1f;
 
+    [Header("═══ LIMITES ═══")]
+    [SerializeField] private bool useBounds = false;
+    [SerializeField] private Vector2 boundsX = new Vector2(-10f, 10f); // mínimo, máximo
+    [SerializeField] private Vector2 boundsZ = new Vector2(-10f, 10f); // mínimo, máximo
+
     private Vector3 velocityXZ = Vector3.zero;
     private Vector3 velocityY = Vector3.zero;
     private float currentZoom = 0f;
@@ -45,6 +50,7 @@ public class CameraFollow : MonoBehaviour
     private float jumpOffsetY = 0f;
 
     private bool isFrozen = false;
+    private Vector3 followPosition;
 
     private void Start()
     {
@@ -72,6 +78,8 @@ public class CameraFollow : MonoBehaviour
             target.position.z + basePosition.z
         );
 
+        snapPos = ClampToBounds(snapPos);
+        followPosition = snapPos;
         transform.position = snapPos;
         transform.rotation = Quaternion.Euler(rotationX, 0f, 0f);
 
@@ -124,17 +132,26 @@ public class CameraFollow : MonoBehaviour
         }
 
         Vector3 desiredPos = new Vector3(targetX, targetY + jumpOffsetY, desiredZ);
+        desiredPos = ClampToBounds(desiredPos);
 
-        Vector3 currentPos = transform.position;
-        Vector3 smoothedPos = currentPos;
+        Vector3 smoothedPos = followPosition;
+        smoothedPos.x = Mathf.SmoothDamp(followPosition.x, desiredPos.x, ref velocityXZ.x, horizontalSmoothSpeed);
+        smoothedPos.z = Mathf.SmoothDamp(followPosition.z, desiredPos.z, ref velocityXZ.z, horizontalSmoothSpeed);
+        smoothedPos.y = Mathf.SmoothDamp(followPosition.y, desiredPos.y, ref velocityY.y, verticalSmoothSpeed);
 
-        smoothedPos.x = Mathf.SmoothDamp(currentPos.x, desiredPos.x, ref velocityXZ.x, horizontalSmoothSpeed);
-        smoothedPos.z = Mathf.SmoothDamp(currentPos.z, desiredPos.z, ref velocityXZ.z, horizontalSmoothSpeed);
-        smoothedPos.y = Mathf.SmoothDamp(currentPos.y, desiredPos.y, ref velocityY.y, verticalSmoothSpeed);
+        followPosition = smoothedPos;
 
-        transform.position = smoothedPos;
-        transform.position += shakeOffset;
+        transform.position = followPosition + shakeOffset;
         transform.rotation = Quaternion.Euler(rotationX, 0f, 0f);
+    }
+
+    private Vector3 ClampToBounds(Vector3 pos)
+    {
+        if (!useBounds) return pos;
+
+        pos.x = Mathf.Clamp(pos.x, boundsX.x, boundsX.y);
+        pos.z = Mathf.Clamp(pos.z, boundsZ.x, boundsZ.y);
+        return pos;
     }
 
     private float CalculateHorizontalPosition()
@@ -233,6 +250,20 @@ public class CameraFollow : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (useBounds)
+        {
+            Gizmos.color = Color.cyan;
+
+            Vector3 center = new Vector3(
+                (boundsX.x + boundsX.y) * 0.5f,
+                transform.position.y,
+                (boundsZ.x + boundsZ.y) * 0.5f
+            );
+
+            Vector3 size = new Vector3(boundsX.y - boundsX.x, 0.1f, boundsZ.y - boundsZ.x);
+            Gizmos.DrawWireCube(center, size);
+        }
+
         if (target == null) return;
 
         Vector3 playerPos = target.position;

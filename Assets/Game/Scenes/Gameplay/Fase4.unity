@@ -1229,6 +1229,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1009297548}
   m_LocalEulerAnglesHint: {x: 0, y: 29.6, z: 0}
+--- !u!54 &797077023 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6741242963099719446, guid: 1461665663a2c5940981daa933b94302, type: 3}
+  m_PrefabInstance: {fileID: 161904609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &797077024 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3709151002226823206, guid: 1461665663a2c5940981daa933b94302, type: 3}
+  m_PrefabInstance: {fileID: 161904609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &871371419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,10 +1946,30 @@ PrefabInstance:
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 797077024}
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: targetRb
       value: 
+      objectReference: {fileID: 797077023}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: boundsX.x
+      value: 11.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: boundsX.y
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: boundsZ.x
+      value: -290
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: boundsZ.y
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: useBounds
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: basePosition.x
@@ -1947,15 +1977,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: basePosition.y
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: basePosition.z
-      value: -14
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: verticalDeadZone
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015056348191377409, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
+      propertyPath: enableDynamicZoom
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8934589399743740208, guid: 0db140673da543347aadf10c9f3cadbe, type: 3}
       propertyPath: m_Name
